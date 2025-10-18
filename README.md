@@ -58,3 +58,89 @@ FROM (
 WHERE rk.Top_3_Restaurants <= 3;
 ```
 **Insight:** Italian and Lebanese cuisines emerged as the top-performing categories, with outlets **PIZZA123** and **KMKMH6787** leading overall — indicating strong customer preference for these cuisines.
+
+### Find the daily new customer count from the launch date (everyday how many new customers are we aquiring)
+
+```sql
+SELECT 
+rc.first_order_date , 
+COUNT(*) as new_customers FROM  (
+    SELECT [Customer_code] , CAST(MIN([Placed_at]) AS DATE) as first_order_date 
+    FROM [WareHouse_Portfolio_Project].[restaurant].[orders]
+    GROUP BY [Customer_code]
+) as rc
+GROUP BY rc.first_order_date
+ORDER BY rc.first_order_date
+```
+
+### Count of all the users who were acquired in Jan 2025 and only placed one order in JAN and did not Place Any Other Order
+
+```sql
+SELECT 
+    Customer_code,
+    COUNT(*) AS Total_Orders
+    FROM 
+    [WareHouse_Portfolio_Project].[restaurant].[orders]
+WHERE Customer_code NOT IN (SELECT 
+                                DISTINCT Customer_code
+                                FROM [WareHouse_Portfolio_Project].[restaurant].[orders]
+                                WHERE MONTH(Placed_at) != 1 AND YEAR(Placed_at) = 2025
+) AND MONTH(Placed_at) = 1 AND YEAR(Placed_at) = 2025
+GROUP BY Customer_code
+HAVING  COUNT(*) = 1
+```
+
+### List all the customers with no order in the last 7 days but were acquired one month ago with their first order on promo.
+
+```sql
+WITH cte_promo as (
+SELECT 
+    Customer_code,
+    MIN(Placed_at)  as first_order_date,
+    MAX(Placed_at)  as last_order_date
+FROM 
+[WareHouse_Portfolio_Project].[restaurant].[orders]
+GROUP BY Customer_code
+)
+SELECT ct.*,o.[Promo_code_Name]
+FROM [WareHouse_Portfolio_Project].[restaurant].[orders] o
+INNER JOIN cte_promo as ct ON ct.Customer_code = o.Customer_code AND ct.first_order_date = o.Placed_at
+WHERE last_order_date < DATEADD(DAY,-7,GETDATE()) AND 
+ct.first_order_date < DATEADD(MONTH,-1,GETDATE()) AND o.[Promo_code_Name] IS NOT NULL
+```
+
+### Growth Team is planning to create a trigger that will target customers after every third order with a personalized communication and they have asked you to create a query for this.
+
+```sql
+WITH CTE_FT AS (
+SELECT 
+    [Customer_code] , 
+    [Placed_at] ,
+    ROW_NUMBER() OVER(PARTITION BY [Customer_code]  ORDER BY [Placed_at] ASC) as row_num
+FROM 
+[WareHouse_Portfolio_Project].[restaurant].[orders]
+)
+
+SELECT * FROM CTE_FT
+where row_num % 3 = 0;
+```
+
+### List customers who have placed more than 1 order and all their orders on a promo only.
+
+```sql
+SELECT 
+    [Customer_code],
+    COUNT(*) as total_orders,
+    COUNT([Promo_code_Name]) AS total_promo_number
+FROM 
+[WareHouse_Portfolio_Project].[restaurant].[orders] 
+GROUP BY [Customer_code]
+HAVING COUNT(*) > 1 AND COUNT(*) = COUNT([Promo_code_Name]);
+```
+
+### What percent of customers were organically acquired in Jan 2025 (placed their first order on promo code).
+
+```sql
+
+
+```
