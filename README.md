@@ -40,7 +40,7 @@ Table Given to Analyze Key Insights
 # SQL Analysis:
 
 ### Find Top 3 Outlets by Cuisine Type
-
+**Insight:** Italian and Lebanese cuisines emerged as the top-performing categories, with outlets **PIZZA123** and **KMKMH6787** leading overall — indicating strong customer preference for these cuisines.
 ```sql
 SELECT * 
 FROM (
@@ -57,9 +57,10 @@ FROM (
 ) rk
 WHERE rk.Top_3_Restaurants <= 3;
 ```
-**Insight:** Italian and Lebanese cuisines emerged as the top-performing categories, with outlets **PIZZA123** and **KMKMH6787** leading overall — indicating strong customer preference for these cuisines.
+
 
 ### Find the daily new customer count from the launch date (everyday how many new customers are we aquiring)
+**Insights :** Customer acquisition showed steady but modest daily growth since launch, with a few spikes on **Jan 1, Jan 5, Jan 10, and Jan 31,** suggesting the impact of initial promotions or marketing pushes during these dates. After January, **acquisition slowed significantly,** with only sporadic new users in February and March, indicating a drop in campaign momentum or reduced marketing visibility.
 
 ```sql
 SELECT 
@@ -74,6 +75,7 @@ ORDER BY rc.first_order_date
 ```
 
 ### Count of all the users who were acquired in Jan 2025 and only placed one order in JAN and did not Place Any Other Order
+**Insights:** **A total of 33 customers were acquired in January 2025** but placed only one order that month and did not return, indicating low repeat engagement among newly acquired users. This pattern suggests the need to **analyze onboarding and post-purchase retention efforts** — especially to understand if these customers were promo-driven or lacked incentives for reordering.
 
 ```sql
 SELECT 
@@ -91,6 +93,7 @@ HAVING  COUNT(*) = 1
 ```
 
 ### List all the customers with no order in the last 7 days but were acquired one month ago with their first order on promo.
+**Insights :** Several customers (e.g., LMN9876543210JKL, HIJ9876543210DEF, SINGLE_ORDER_JAN) were acquired over a month ago with their first order on a promo but have shown **no activity in the last 7 days**, indicating a potential churn segment. These users are **promo-sensitive and should be re-engaged through retention campaigns or loyalty offers** to drive repeat purchases.
 
 ```sql
 WITH cte_promo as (
@@ -110,6 +113,7 @@ ct.first_order_date < DATEADD(MONTH,-1,GETDATE()) AND o.[Promo_code_Name] IS NOT
 ```
 
 ### Growth Team is planning to create a trigger that will target customers after every third order with a personalized communication and they have asked you to create a query for this.
+**Insights:** Multiple customers such as **THIRD_ORDER_CUST1, THIRD_ORDER_CUST2, and UVW7890123456JKL** have reached or crossed their third order milestone, making them ideal targets for personalized post-3rd order engagement campaigns. This segment represents high retention potential customers, where timely communication can boost loyalty and repeat purchase frequency.
 
 ```sql
 WITH CTE_FT AS (
@@ -126,6 +130,7 @@ where row_num % 3 = 0;
 ```
 
 ### List customers who have placed more than 1 order and all their orders on a promo only.
+**Insights :** Only a small subset of customers **(e.g., UVW7890123456JKL, DEF9876543210XYZ)** have placed **multiple orders exclusively using promo codes,** indicating a **promo-dependent customer segment** that may require strategies to encourage **full-price purchases or loyalty-based retention.**
 
 ```sql
 SELECT 
@@ -139,7 +144,7 @@ HAVING COUNT(*) > 1 AND COUNT(*) = COUNT([Promo_code_Name]);
 ```
 
 ### What percent of customers were organically acquired in Jan 2025 (placed their first order on promo code).
-**Insights** : Around 43% of customers were organically acquired in January 2025, meaning the majority of new users still relied on promo codes — highlighting an opportunity to reduce promo dependency and strengthen organic acquisition channels.
+**Insights** : Around **43% of customers were organically acquired** in January 2025, meaning the majority of new users still relied on promo codes — highlighting an opportunity to **reduce promo dependency and strengthen organic acquisition channels.**
 
 ```sql
 WITH CTE_organic as (
