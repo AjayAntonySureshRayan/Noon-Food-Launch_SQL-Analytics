@@ -47,6 +47,20 @@ Table Given to Analyze Key Insights
    
 # Executive Summary :
 
+The analysis highlights key trends in customer acquisition, engagement, and ordering behavior since the platform’s launch. The data shows that Italian and Lebanese cuisines emerged as top-performing categories, led by high-order outlets such as PIZZA123 and KMKMH6787, reflecting strong customer preference for these cuisines.
+
+Customer acquisition experienced a steady start in early January 2025, with notable peaks during initial promotional periods (Jan 1, Jan 5, Jan 10, and Jan 31). However, the pace slowed significantly after January, suggesting reduced new user inflow in subsequent months.
+
+A deeper look at customer retention patterns reveals that a large segment of users acquired in January placed only one order and did not re-engage afterward, indicating limited repeat activity from early adopters. Additionally, a subset of customers placed multiple orders exclusively using promotional offers, showing a reliance on discounts rather than organic loyalty.
+
+Organic acquisition analysis indicates that 43% of new customers were promo-driven, suggesting that while marketing efforts were successful in attracting first-time users, sustained engagement remains a challenge.
+
+Finally, order frequency analysis identified customers who reached their third order milestone, a crucial point for personalized communication triggers. These users represent an important retention cohort with potential for long-term loyalty building.
+
+Overall, the findings underscore initial traction through promotions, uneven customer retention, and opportunities for engagement optimization as the platform matures.
+
+The primary metrics focus on **acquisition, retention, and outlet performance,** which are the most critical levers for business growth. Secondary metrics add context, helping leadership understand **order patterns, promo usage, and churn signals.**
+
 # SQL EDA Analysis:
 
 ### Find Top 3 Outlets by Cuisine Type
