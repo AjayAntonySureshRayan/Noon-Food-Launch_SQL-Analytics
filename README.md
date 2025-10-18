@@ -141,6 +141,18 @@ HAVING COUNT(*) > 1 AND COUNT(*) = COUNT([Promo_code_Name]);
 ### What percent of customers were organically acquired in Jan 2025 (placed their first order on promo code).
 
 ```sql
+WITH CTE_organic as (
+        SELECT 
+        [Customer_code] ,
+        [Placed_at],
+        [Promo_code_Name],
+        ROW_NUMBER() OVER(PARTITION BY [Customer_code]  ORDER BY [Placed_at] ASC) as row_num 
+        FROM [WareHouse_Portfolio_Project].[restaurant].[orders]
+        WHERE MONTH([Placed_at]) = 1 AND YEAR([Placed_at]) = 2025
+)
 
+SELECT 
+    COUNT( case when row_num = 1 AND [Promo_code_Name] IS NULL THEN [Customer_code] END)* 100  / COUNT(DISTINCT [Customer_code])  as pct
+FROM CTE_organic 
 
 ```
