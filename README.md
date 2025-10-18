@@ -4,16 +4,25 @@ As part of the Data Analytics team, I was tasked to extract, analyze, and interp
 
 # Metrics Framework
 
-| Type                  | Metric                           | Description                                    |
-| --------------------- | -------------------------------- | ---------------------------------------------- |
-| **Primary Metrics**   |  Number of Orders              | Volume of orders placed daily since launch     |
-|                       |  Revenue per Day / per Cuisine | Key performance indicator of customer spending |
-|                       |  New Customer Acquisition Rate | Growth in new customers post-launch            |
-| **Secondary Metrics** |  Repeat Purchase Rate          | % of customers making multiple purchases       |
-|                       |  Promo vs Organic Split        | Share of users acquired via promos             |
-|                       |  Dormant Customer Count        | Users inactive in the last 7 days              |
-| **Guardrail Metrics** |  Promo Dependency              | % of customers transacting only via promos     |
-|                       |  Customer Churn                | Users who haven’t returned after first order   |
+| Metric Category            | Metric                        | Purpose / Insight                                        |
+| -------------------------- | ----------------------------- | -------------------------------------------------------- |
+| **Acquisition**            | Daily New Customers           | Measures growth rate and campaign effectiveness          |
+|                            | Promo vs. Organic Acquisition | Tracks dependency on discounts vs. organic growth        |
+|                            | Monthly New Customer Count    | Monitors month-over-month growth                         |
+| **Engagement & Retention** | One-Time Customers            | Identifies churn-prone users                             |
+|                            | Repeat Customers              | Tracks loyal users with multiple orders                  |
+|                            | Promo-Dependent Customers     | Highlights users relying exclusively on discounts        |
+|                            | Time to 2nd / 3rd Order       | Measures customer engagement speed                       |
+| **Order Metrics**          | Total Orders per Customer     | Depth of engagement per user                             |
+|                            | Orders by Cuisine / Outlet    | Identifies popular cuisines and outlets                  |
+|                            | Promo vs. Non-Promo Orders    | Measures discount dependency                             |
+|                            | Top 3 Outlets per Cuisine     | Highlights top-performing outlets                        |
+| **Cohort Metrics**         | Cohort Retention              | Tracks how many customers return after acquisition month |
+|                            | 3rd Order Trigger Candidates  | Identifies users eligible for targeted communications    |
+| **High-Level Metrics**     | Organic Acquisition %         | Indicates share of non-promo users                       |
+|                            | Promo Dependency %            | Measures reliance on promotional incentives              |
+|                            | Churn Potential               | Monitors customers inactive for 7+ days                  |
+
 
 
 # Data Model
@@ -35,9 +44,10 @@ Table Given to Analyze Key Insights
 6. List customers who have placed more than 1 order and all their orders on a promo only.
 
 7. What percent of customers were organically acquired in Jan 2025 (placed their first order on promo code).
+   
+# Executive Summary :
 
-
-# SQL Analysis:
+# SQL EDA Analysis:
 
 ### Find Top 3 Outlets by Cuisine Type
 **Insight:** Italian and Lebanese cuisines emerged as the top-performing categories, with outlets **PIZZA123** and **KMKMH6787** leading overall — indicating strong customer preference for these cuisines.
