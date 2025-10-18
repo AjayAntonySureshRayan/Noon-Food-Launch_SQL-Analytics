@@ -139,6 +139,7 @@ HAVING COUNT(*) > 1 AND COUNT(*) = COUNT([Promo_code_Name]);
 ```
 
 ### What percent of customers were organically acquired in Jan 2025 (placed their first order on promo code).
+**Insights** : Around 43% of customers were organically acquired in January 2025, meaning the majority of new users still relied on promo codes — highlighting an opportunity to reduce promo dependency and strengthen organic acquisition channels.
 
 ```sql
 WITH CTE_organic as (
